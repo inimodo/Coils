@@ -27,12 +27,18 @@
     <ClCompile Include="main.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="strmod.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CPCD.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="incoil.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="strmod.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

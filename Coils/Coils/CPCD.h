@@ -27,7 +27,7 @@
 #define _CPCD_USE_EVENTS			_CPCD_TRUE
 
 
-#define _CPCD_QUALITY		0.001F
+#define _CPCD_QUALITY		0.0005F
 #define _CPCD_PIXELQUALITY	3
 
 #define _CPCD_NULL			(void*)0x0

@@ -119,10 +119,12 @@
     <ClCompile Include="CPCD_S.c" />
     <ClCompile Include="incoil.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="strmod.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CPCD.h" />
     <ClInclude Include="incoil.h" />
+    <ClInclude Include="strmod.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
