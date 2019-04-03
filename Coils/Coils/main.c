@@ -19,15 +19,15 @@
 #define _P_GRAPHZERO	(2*_P_HEIGHT_S/4)
 
 
-#define _P_GRAPHCOLOR_ZEROLINE (_CPCD_COLOR){0,0,255}
+#define _P_GRAPHCOLOR_ZEROLINE (_CPCD_COLOR){200,200,200}
 #define _P_GRAPHCOLOR_POINTS (_CPCD_COLOR){255,0,0}
 #define _P_GRAPHCOLOR_BACKCOLOR (_CPCD_COLOR){0,0,0}
 
 static unsigned short us_periods = 1;
-static unsigned short us_upscale = 1;
+static unsigned short us_upscale = 10;
 
 static unsigned float us_draw_scale_y = 1000.f;
-static unsigned float us_draw_scale_x = 5000.f;
+static unsigned float us_draw_scale_x = 3000.f;
 
 static _C_SAMPLE cs_loadedsample;
 
@@ -59,7 +59,7 @@ int callupdate();
 
 _CPCD_MAIN
 {
-	getperiodinfo("H:\\VisualStudio\\Projekts\\C\\Coils\\GIT\\Coils\\Coils\\Coils\\infofile.txt",&cs_loadedsample);
+	getperiodinfo("H:\\VisualStudio\\Projekts\\C\\Coils\\GIT\\Coils\\Coils\\Coils\\infofile.txt", &cs_loadedsample);
 
 	initelements();
 	m_map = _CPCD_CREATE(_P_WIDTH,_P_HEIGHT);
@@ -207,7 +207,7 @@ int callupdate()
 
 
 	_CPCD_DRAWLINE(&s_graphwindow, (_CPCD_VECTOR) {0, _P_GRAPHZERO}, (_CPCD_VECTOR) { _P_WIDTH, _P_GRAPHZERO}, _P_GRAPHCOLOR_ZEROLINE);
-
+	 
 	
 	_CPCD_DRAWLINE(&s_graphwindow, (_CPCD_VECTOR) { _P_BUTTON_PADDING, 0}, (_CPCD_VECTOR) { _P_BUTTON_PADDING, _P_HEIGHT_S}, _P_GRAPHCOLOR_ZEROLINE);
 
@@ -223,7 +223,6 @@ int callupdate()
 		v_posvec.X += _P_BUTTON_PADDING;
 		v_posvec.Y += _P_GRAPHZERO;
 
-		printf("%d %d\n", v_posvec.X, v_posvec.Y);
 
 		_CPCD_DRAWLINE(&s_graphwindow, v_posvec, v_lastpos, _P_GRAPHCOLOR_POINTS);
 
