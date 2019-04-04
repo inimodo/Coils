@@ -17,14 +17,18 @@ int getperiodinfo(char* c_file, _C_SAMPLE* cs_samples) {
 	fscanf_s(f_filestream, _P_FILE_HEADER,&(cs_samples->f_resistor), &(cs_samples->f_inductor), &(cs_samples->i_samples));
 
 	(*cs_samples).cp_samples = (_C_PERIOD*)malloc(sizeof(_C_PERIOD)*(cs_samples->i_samples));
+	printf("L:%f %f %d0\n", (cs_samples->f_resistor), (cs_samples->f_inductor), (cs_samples->i_samples));
 
 	float f_div;
 	for (int i_cpindex = 0,i_return = 0; i_cpindex<(cs_samples->i_samples); i_cpindex++)
 	{
-		printf("%d\n", i_cpindex);
 
 		i_return=fscanf_s(f_filestream, _P_FILE_BODY, &((*cs_samples).cp_samples[i_cpindex].f_voltage), &((*cs_samples).cp_samples[i_cpindex].f_time), &f_div);
 		(*cs_samples).cp_samples[i_cpindex].f_time /= f_div;
+
+		printf("L:%f %f \n", (*cs_samples).cp_samples[i_cpindex].f_time, ((*cs_samples).cp_samples[i_cpindex].f_voltage));
+
+
 		if (i_return== EOF)break;
 
 	}
@@ -77,6 +81,10 @@ int getdata_a(_C_SAMPLE cs_sample, unsigned short us_periods,unsigned short us_u
 				(*p_dataset)[i_offset + i_timeindex].d_i *= (f_imaxvalueoffset - f_imaxvaluedelta);
 				(*p_dataset)[i_offset + i_timeindex].d_i += f_imaxvaluedelta;
 			}
+
+			(*p_dataset)[i_offset + i_timeindex].d_ur = cs_sample.f_resistor*(*p_dataset)[i_offset + i_timeindex].d_i;
+			(*p_dataset)[i_offset + i_timeindex].d_ul = cs_sample.cp_samples[i_index].f_voltage - (*p_dataset)[i_offset + i_timeindex].d_ur;
+
 
 			(*p_dataset)[i_offset + i_timeindex].d_u = cs_sample.cp_samples[i_index].f_voltage;
 			(*p_dataset)[i_offset + i_timeindex].d_t = f_time + f_timedelta;
