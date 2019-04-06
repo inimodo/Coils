@@ -58,7 +58,8 @@ int __stdcall WinMain(_CPCD_DATA_HINTS hInstance, _CPCD_DATA_HINTS hPrevInstance
 	if (!RegisterClassEx(&wc_window))return 0;
 	
 	hwnd = CreateWindowEx(WS_EX_CLIENTEDGE, _CPCD_WINDOW_CLASS, _CPCD_WINDOW_WINAME, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, _CPCD_WINDOW_WIDTH, _CPCD_WINDOW_HEIGHT, NULL, NULL, hInstance, NULL);
-	
+	_CPCD_INIT();
+
 	if (hwnd == NULL)return 0;
 	if (_CPCD_MAIN_F(hwnd) != 0)return 0;
 
@@ -66,7 +67,6 @@ int __stdcall WinMain(_CPCD_DATA_HINTS hInstance, _CPCD_DATA_HINTS hPrevInstance
 	UpdateWindow(hwnd);
 	hdc_frame = GetDC(hwnd);
 
-	_CPCD_INIT();
 
 	_CDD_DATA_TIME t_pasttime = clock();
 
