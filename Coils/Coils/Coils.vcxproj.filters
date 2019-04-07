@@ -42,7 +42,4 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="infofile.txt" />
-  </ItemGroup>
 </Project>

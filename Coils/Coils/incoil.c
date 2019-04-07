@@ -16,19 +16,15 @@ int getperiodinfo(char* c_file, _C_SAMPLE* cs_samples) {
 
 	fscanf_s(f_filestream, _P_FILE_HEADER,&(cs_samples->f_resistor), &(cs_samples->f_inductor), &(cs_samples->i_samples));
 
+
+	if ((*cs_samples).cp_samples != NULL)free((*cs_samples).cp_samples);
 	(*cs_samples).cp_samples = (_C_PERIOD*)malloc(sizeof(_C_PERIOD)*(cs_samples->i_samples));
-	printf("L:%f %f %d0\n", (cs_samples->f_resistor), (cs_samples->f_inductor), (cs_samples->i_samples));
 
 	float f_div;
 	for (int i_cpindex = 0,i_return = 0; i_cpindex<(cs_samples->i_samples); i_cpindex++)
 	{
-
 		i_return=fscanf_s(f_filestream, _P_FILE_BODY, &((*cs_samples).cp_samples[i_cpindex].f_voltage), &((*cs_samples).cp_samples[i_cpindex].f_time), &f_div);
 		(*cs_samples).cp_samples[i_cpindex].f_time /= f_div;
-
-		printf("L:%f %f \n", (*cs_samples).cp_samples[i_cpindex].f_time, ((*cs_samples).cp_samples[i_cpindex].f_voltage));
-
-
 		if (i_return== EOF)break;
 
 	}

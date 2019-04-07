@@ -18,13 +18,13 @@
 
 #include "CPCD.h"
 
-void _CPCD_INIT();
+extern void _CPCD_INIT();
 
-_CPCD_DATA_WNDC wc_window;
-_CPCD_DATA_HWND hwnd;
-_CPCD_DATA_MSG Msg;
-_CPCD_INT ui_frame = 0;
-_CPCD_DATA_HDC hdc_frame;
+static _CPCD_DATA_WNDC wc_window;
+static _CPCD_DATA_HWND hw_handle;
+static _CPCD_DATA_MSG Msg;
+static _CPCD_INT ui_frame = 0;
+static _CPCD_DATA_HDC hdc_frame;
 
 long __stdcall WndProc(_CPCD_DATA_HWND hwnds, _CPCD_UINT UI_MSG, _CPCD_DATA_WPARAM wParam, _CPCD_DATA_LPARAM lParam) {
 
@@ -40,8 +40,6 @@ long __stdcall WndProc(_CPCD_DATA_HWND hwnds, _CPCD_UINT UI_MSG, _CPCD_DATA_WPAR
 }
 int __stdcall WinMain(_CPCD_DATA_HINTS hInstance, _CPCD_DATA_HINTS hPrevInstance, _CPCD_DATA_LPSTR lpCmdLine, int nCmdShow) {
 
-
-
 	#ifdef _CPCD_SHOWCONSOL
 	AllocConsole();
 	freopen(_CPCD_WINDOW_CONSOLE);
@@ -53,19 +51,34 @@ int __stdcall WinMain(_CPCD_DATA_HINTS hInstance, _CPCD_DATA_HINTS hPrevInstance
 	wc_window.lpfnWndProc = WndProc;
 	wc_window.hInstance = hInstance;
 	wc_window.lpszClassName = _CPCD_WINDOW_CLASS;
-	wc_window.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
+	wc_window.hIconSm = LoadIcon(hInstance, IDI_APPLICATION);
+
 
 	if (!RegisterClassEx(&wc_window))return 0;
 	
-	hwnd = CreateWindowEx(WS_EX_CLIENTEDGE, _CPCD_WINDOW_CLASS, _CPCD_WINDOW_WINAME, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, _CPCD_WINDOW_WIDTH, _CPCD_WINDOW_HEIGHT, NULL, NULL, hInstance, NULL);
+	hw_handle = CreateWindowEx(
+		WS_EX_CLIENTEDGE, 
+		_CPCD_WINDOW_CLASS, 
+		_CPCD_WINDOW_WINAME, 
+		WS_OVERLAPPEDWINDOW, 
+		CW_USEDEFAULT, 
+		CW_USEDEFAULT, 
+		_CPCD_WINDOW_WIDTH, 
+		_CPCD_WINDOW_HEIGHT, 
+		NULL, 
+		NULL, 
+		hInstance, 
+		NULL
+	);
+
 	_CPCD_INIT();
 
-	if (hwnd == NULL)return 0;
-	if (_CPCD_MAIN_F(hwnd) != 0)return 0;
+	if (hw_handle == NULL)return 0;
+	if (_CPCD_MAIN_F(hw_handle) != 0)return 0;
 
-	ShowWindow(hwnd, nCmdShow);
-	UpdateWindow(hwnd);
-	hdc_frame = GetDC(hwnd);
+	ShowWindow(hw_handle, nCmdShow);
+	UpdateWindow(hw_handle);
+	hdc_frame = GetDC(hw_handle);
 
 
 	_CDD_DATA_TIME t_pasttime = clock();
@@ -449,7 +462,7 @@ _CPCD_VECTOR _CPCD_VECDIV(_CPCD_VECTOR V_ONE, _CPCD_VECTOR V_TWO) {
 _CPCD_VECTOR _CPCD_CURSORPOS(){
 	POINT p_pos;
 	GetCursorPos(&p_pos);
-	ScreenToClient(hwnd, &p_pos);
+	ScreenToClient(hw_handle, &p_pos);
 	return (_CPCD_VECTOR) { p_pos.x, p_pos.y};
 }
 void _CPCD_DRAWSTRING(_CPCD_MAP* CPCD_CANVAS, _CPCD_STRING C_TEXT, _CPCD_INT	USI_LENGTH, _CPCD_VECTOR V_POINT, _CPCD_INT I_SCALE, _CPCD_COLOR	C_COLOR){

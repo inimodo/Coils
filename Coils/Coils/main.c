@@ -76,6 +76,7 @@ _CPCD_MAIN
 {
 	getperiodinfo("H:\\VisualStudio\\Projekts\\C\\Coils\\GIT\\Coils\\Coils\\Coils\\infofile.txt", &cs_loadedsample);
 
+
 	initelements();
 
 
@@ -99,31 +100,13 @@ _CPCD_MAIN
 
 _CPCD_UPDATE
 {
-
-	int i_time = clock();
-
-	printf("%d CLR\n", clock()-i_time);
-	i_time = clock();
-
 	callupdate();
-
-	printf("%d CALL\n", clock() - i_time);
-	i_time = clock();
 
 	_CPCD_DRAWSPRITE(&m_map, s_graphwindow, _CPCD_SBM_OVERRIDE, 0);
 
-	printf("%d DGRA\n", clock() - i_time);
-	i_time = clock();
-
 	_CPCD_DRAWSPRITE(&m_map, s_settingtext, _CPCD_SBM_OVERRIDE, 0);
 
-	printf("%d DSET\n", clock() - i_time);
-	i_time = clock();
-
 	catchtrigger();
-
-	printf("%d CATCH\n", clock() - i_time);
-	i_time = clock();
 
 	_CPCD_DRAWBUFFER(&m_map);
 	return 0;

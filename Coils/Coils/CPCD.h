@@ -35,7 +35,7 @@
 #define _CPCD_INT			short int
 #define _CPCD_UINT			unsigned int
 
-#define _CPCD_WINDOW_WINAME	"win32"
+#define _CPCD_WINDOW_WINAME	"Inductance"
 #define _CPCD_WINDOW_WIDTH	16*80
 #define _CPCD_WINDOW_HEIGHT	9*80
 
